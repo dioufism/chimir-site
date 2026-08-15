@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — CHIMIR</title>
+<meta name="description" content="Tell CHIMIR what's slowing your business down. We'll come back with a concrete way to fix it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1411; --bg-2:#111814; --panel:#161f1a; --panel-2:#1b2620;
+    --cream:#F5F0E8; --ink:#e6eae5; --muted:#8b9d91; --muted-2:#bccdc1;
+    --mint:#9ee5b3; --mint-2:#7aa889; --deep:#3f5246;
+    --line:rgba(158,229,179,.14); --line-2:rgba(158,229,179,.22);
+    --radius:18px; --maxw:1140px;
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'Space Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:15px;
+    padding:14px 24px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:.2s}
+  .btn-primary{background:var(--mint);color:#0b1310}
+  .btn-primary:hover{background:#b7f0c8;transform:translateY(-1px)}
+  .btn-primary:disabled{opacity:.6;cursor:default;transform:none}
+  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(13,20,17,.72);
+    backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;letter-spacing:.02em;font-size:22px;color:var(--cream)}
+  .logo .mark{width:28px;height:28px;border-radius:9px;background:linear-gradient(140deg,var(--mint),var(--mint-2));
+    display:grid;place-items:center;color:#0b1310;font-size:15px;font-weight:700}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{color:var(--muted-2);font-weight:500;font-size:15px;transition:.18s}
+  .nav-links a:hover{color:var(--cream)}
+  .nav-links a.active{color:var(--mint)}
+  @media(max-width:760px){.nav-links a:not(.btn):not(.active){display:none}}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  .phead{position:relative;overflow:hidden;padding:96px 0 40px;text-align:center}
+  .phead:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(900px 440px at 50% -60px,rgba(158,229,179,.15),transparent 65%)}
+  .phead .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--mint);margin:0 0 16px}
+  .phead h1{font-family:var(--serif);font-weight:500;font-size:clamp(36px,5.4vw,58px);line-height:1.04;margin:0 auto 16px;max-width:16ch;color:var(--cream)}
+  .phead p{color:var(--muted-2);font-size:19px;max-width:58ch;margin:0 auto}
+
+  .layout{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;padding:48px 0 96px;align-items:start}
+  @media(max-width:840px){.layout{grid-template-columns:1fr;gap:32px}}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px}
+  .form{display:flex;flex-direction:column;gap:18px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  .field label{display:block;font-size:13px;color:var(--muted-2);margin-bottom:7px}
+  .field label .req{color:var(--mint)}
+  .field input,.field textarea{width:100%;background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;
+    color:var(--cream);font-family:var(--sans);font-size:15px;padding:13px 15px;transition:.18s}
+  .field input::placeholder,.field textarea::placeholder{color:#6f7f75}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--mint);box-shadow:0 0 0 3px rgba(158,229,179,.12)}
+  .field textarea{min-height:150px;resize:vertical}
+  .hp{position:absolute;left:-9999px;opacity:0}
+  .status{font-size:14.5px;min-height:20px}
+
+  .aside h3{font-family:var(--serif);font-weight:500;font-size:20px;color:var(--cream);margin:0 0 8px}
+  .aside p{color:var(--muted-2);margin:0 0 18px;font-size:15px}
+  .aside .big{font-family:var(--serif);font-size:22px;color:var(--mint);word-break:break-all}
+  .aside .list{list-style:none;padding:0;margin:16px 0 0}
+  .aside .list li{position:relative;padding-left:24px;color:var(--muted-2);font-size:14.5px;margin-bottom:10px}
+  .aside .list li:before{content:"";position:absolute;left:3px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--mint)}
+
+  footer{border-top:1px solid var(--line);padding:44px 0;color:var(--muted);font-size:14px}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot-inner .logo{font-size:19px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html"><span class="mark">✦</span> CHIMIR</a>
+    <nav class="nav-links">
+      <a href="index.html#approach">Approach</a>
+      <a href="services.html">Services</a>
+      <a href="index.html#stories">Work</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="phead">
+  <div class="wrap">
+    <p class="kicker reveal">Contact</p>
+    <h1 class="reveal">Let's find the problem worth solving.</h1>
+    <p class="reveal">Tell us what's slowing your business down. We'll come back with a concrete way to fix it — not a generic pitch.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap layout">
+    <div class="panel reveal">
+      <form id="contactForm" class="form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Web3Forms: replace the value below with your free access key from web3forms.com -->
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="New inquiry from chimir.digital">
+        <input type="hidden" name="from_name" value="CHIMIR Website">
+        <!-- honeypot: hidden from users, catches bots -->
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+        <div class="row2">
+          <div class="field">
+            <label>Name <span class="req">*</span></label>
+            <input type="text" name="name" required placeholder="Your name">
+          </div>
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" name="email" required placeholder="you@company.com">
+          </div>
+        </div>
+        <div class="field">
+          <label>Company</label>
+          <input type="text" name="company" placeholder="Company name">
+        </div>
+        <div class="field">
+          <label>What can we help with? <span class="req">*</span></label>
+          <textarea name="message" required placeholder="Tell us about the problem you're trying to solve…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Send inquiry</button>
+        <div class="status mono" id="formStatus"></div>
+      </form>
+    </div>
+
+    <aside class="aside reveal">
+      <div class="panel">
+        <h3>Prefer email?</h3>
+        <p>Reach us directly and we'll reply within one business day.</p>
+        <a class="big" href="mailto:hello@chimir.digital">hello@chimir.digital</a>
+        <ul class="list">
+          <li>Tell us the outcome you want</li>
+          <li>We reply with a concrete next step</li>
+          <li>No spam, no drip sequences</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo"><span class="mark">✦</span> CHIMIR</div>
+    <div>hello@chimir.digital</div>
+    <div>© 2026 CHIMIR. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal animation
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.1});
+    els.forEach(function(e){io.observe(e);});
+  })();
+
+  // Form submit via fetch (inline success, no page redirect)
+  (function(){
+    var form=document.getElementById('contactForm');
+    var status=document.getElementById('formStatus');
+    var btn=document.getElementById('submitBtn');
+    form.addEventListener('submit',async function(e){
+      e.preventDefault();
+      if(form.access_key.value.indexOf('YOUR_')===0){
+        status.style.color='#e8b06a';
+        status.textContent='Form not connected yet — add your Web3Forms access key.';
+        return;
+      }
+      btn.disabled=true; status.style.color='var(--muted-2)'; status.textContent='Sending…';
+      try{
+        var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+        var json=await res.json();
+        if(json.success){
+          form.reset(); status.style.color='var(--mint)';
+          status.textContent="Thanks — your inquiry is in. We'll be in touch shortly.";
+        }else{
+          status.style.color='#e88'; status.textContent='Something went wrong. Please email us directly.';
+        }
+      }catch(err){
+        status.style.color='#e88'; status.textContent='Something went wrong. Please email us directly.';
+      }
+      btn.disabled=false;
+    });
+  })();
+</script>
+
+</body>
+</html>
